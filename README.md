@@ -22,3 +22,5 @@ A tool to manage latest version of Programmed Crew DJMAX TECHNIKA 3 client.
 ## Change log
 ### 1.0
 - Released.
+### 1.0.1
+- Fix init movie folder value when edit custom song.
