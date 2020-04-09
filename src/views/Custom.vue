@@ -166,7 +166,7 @@ export default {
         FullName: song.FullName,
         Genre: song.Genre,
         Composer: song.Composer,
-        Movie: song.Movie,
+        Movie: parseInt(song.bg_folder.replace(/movie/g, '')),
         loopBga: loop,
         Star_1: song.Star_1,
         Star_2: song.Star_2,
