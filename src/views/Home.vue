@@ -51,32 +51,33 @@
               v-row
                 v-col(cols="12")
                   v-alert(type='error') Make sure you have installed all needed files.
-                  v-alert(type='error') You can only add new difficulties which is not exists in original game.
-                  v-text-field(disabled v-model='dialog.name' label='Song ID' :messages="['A short text without space of song name, e.g. rayof, cypher']" :rules="[v => !!v || 'Required']")
+                  v-text-field(v-model='dialog.name' label='Song ID' :messages="['A short text without space of song name, e.g. rayof, cypher']" :rules="[v => !!v || 'Required']")
                   br
-                  v-text-field(disabled v-model='dialog.FullName' label='Song fullname' :messages="['Fullname of song']" :rules="[v => !!v || 'Required']")
+                  v-text-field(v-model='dialog.FullName' label='Song fullname' :messages="['Fullname of song']" :rules="[v => !!v || 'Required']")
                   br
-                  v-text-field(disabled v-model='dialog.Genre' label='Genre' :messages="['Genre of song, e.g. trance, dubstep']" :rules="[v => !!v || 'Required']")
+                  v-text-field(v-model='dialog.Genre' label='Genre' :messages="['Genre of song, e.g. trance, dubstep']" :rules="[v => !!v || 'Required']")
                   br
-                  v-text-field(disabled v-model='dialog.Composer' label='Composer' :messages="['Composer of song, e.g. M2U, XeoN']" :rules="[v => !!v || 'Required']")
+                  v-text-field(v-model='dialog.Composer' label='Composer' :messages="['Composer of song, e.g. M2U, XeoN']" :rules="[v => !!v || 'Required']")
                   br
-                  v-switch(disabled v-model='dialog.loopBga' label='Loop BGA')
+                  v-text-field(v-model='dialog.Movie' label='BGA movie folder' :messages="[`BGA movie folder number, input 20 if your BGA is in movie20 folder.`]" type='number' min="1" :rules="rules(1)")
                   br
-                  v-text-field(:disabled="isDefault('Star_1')" v-model='dialog.Star_1' label='STAR NM difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules")
+                  v-switch(v-model='dialog.loopBga' label='Loop BGA')
                   br
-                  v-text-field(:disabled="isDefault('Star_2')" v-model='dialog.Star_2' label='STAR HD difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules")
+                  v-text-field(v-model='dialog.Star_1' label='STAR NM difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules(0)")
                   br
-                  v-text-field(:disabled="isDefault('Star_3')" v-model='dialog.Star_3' label='STAR MX difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules")
+                  v-text-field(v-model='dialog.Star_2' label='STAR HD difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules(0)")
                   br
-                  v-text-field(:disabled="isDefault('Star_4')" v-model='dialog.Star_4' label='STAR EX difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules")
+                  v-text-field(v-model='dialog.Star_3' label='STAR MX difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules(0)")
                   br
-                  v-text-field(:disabled="isDefault('Pop_1')" v-model='dialog.Pop_1' label='POP NM difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules")
+                  v-text-field(v-model='dialog.Star_4' label='STAR EX difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules(0)")
                   br
-                  v-text-field(:disabled="isDefault('Pop_2')" v-model='dialog.Pop_2' label='POP HD difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules")
+                  v-text-field(v-model='dialog.Pop_1' label='POP NM difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules(0)")
                   br
-                  v-text-field(:disabled="isDefault('Pop_3')" v-model='dialog.Pop_3' label='POP MX difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules")
+                  v-text-field(v-model='dialog.Pop_2' label='POP HD difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules(0)")
                   br
-                  v-text-field(:disabled="isDefault('Pop_4')" v-model='dialog.Pop_4' label='POP EX difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules")
+                  v-text-field(v-model='dialog.Pop_3' label='POP MX difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules(0)")
+                  br
+                  v-text-field(v-model='dialog.Pop_4' label='POP EX difficulty' :messages="[`0 if doesn't exist`]" type='number' min="0" :rules="rules(0)")
           v-divider
           v-card-actions
             v-spacer
@@ -91,10 +92,6 @@ export default {
   name: 'home',
   data () {
     return {
-      rules: [
-        v => !!v || 'Required',
-        v => parseInt(v) >= 0 || 'Minimum is 0'
-      ],
       search: '',
       dialog: {
         mode: 'add',
@@ -105,6 +102,7 @@ export default {
         FullName: '',
         Genre: '',
         Composer: '',
+        Movie: 20,
         loopBga: 0,
         Star_1: 0,
         Star_2: 0,
@@ -133,6 +131,12 @@ export default {
     }
   },
   methods: {
+    rules (num) {
+      return [
+        v => !!v || 'Required',
+        v => parseInt(v) >= num || `Minimum is ${num}`
+      ]
+    },
     isLong (s) {
       const no = parseInt(s['no'])
       return (no <= 183 && s['name'].includes('long'))
@@ -170,6 +174,7 @@ export default {
         FullName: song.FullName,
         Genre: song.Genre,
         Composer: song.Composer,
+        Movie: parseInt(song.bg_folder.replace(/movie/g, '')),
         loopBga: loop,
         Star_1: song.Star_1,
         Star_2: song.Star_2,
@@ -190,6 +195,7 @@ export default {
         FullName: '',
         Genre: '',
         Composer: '',
+        Movie: 20,
         loopBga: 0,
         Star_1: 0,
         Star_2: 0,
