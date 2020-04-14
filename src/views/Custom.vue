@@ -5,8 +5,11 @@
         v-col(cols="10")
           h1.white--text Custom Songs
           hr
+          v-row
+            v-col(cols="12")
+              v-text-field(placeholder="Type to search..." prepend-icon="search" v-model="search")
           v-row.cards
-            v-col(cols='4' v-for="(s, idx) in customSongs" :key="idx")
+            v-col(cols='4' v-for="(s, idx) in filteredSongs" :key="idx")
               v-card
                 v-img.white--text.align-end(height='200px' :src="'http://localhost:1027/customImg?name=' + s['name']")
                 v-card-title {{ s['FullName'] }}
@@ -92,6 +95,7 @@ export default {
   name: 'home',
   data () {
     return {
+      search: '',
       dialog: {
         mode: 'add',
         songNo: 0,
@@ -121,6 +125,11 @@ export default {
     customSongs () {
       return this.$store.getters.songs.filter((s) => {
         return parseInt(s['no']) >= 184
+      })
+    },
+    filteredSongs () {
+      return this.customSongs.filter((song) => {
+        return song.FullName.toUpperCase().includes(this.search.toUpperCase())
       })
     }
   },
