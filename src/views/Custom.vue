@@ -211,11 +211,11 @@ export default {
         Pop_4: 0
       }
     },
-    del (s) {
+    del (song) {
       this.$swal({ type: 'warning', title: 'Are you sure?', text: 'All stage slots with this song will reset to default', showCancelButton: true })
         .then((e) => {
           if (e.value) {
-            this.axios.post('http://localhost:1027/del', { songNo: s.songNo })
+            this.axios.post('http://localhost:1027/del', { songNo: song.no })
               .then((res) => {
                 if (res.data.success === true) {
                   eventBus.$emit('init')
