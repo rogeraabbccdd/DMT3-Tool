@@ -326,6 +326,7 @@ const delSongs = async (songNo) => {
     let count = 0
     for (let file in gameFileStages) {
       const writeStream = fs.createWriteStream(userPath + gameDiscInfoFolder + gameFileStages[file], { flag: 'w' })
+      writeStream.write(`stage${gameFileStages[file].slice(-5, -4)},songname,SP,PT,Hid,SP,PT,Hid,SP,PT,Hid,SP,PT,Hid\r\n`)
       for await (let s of stage) {
         writeStream.write(s.join(',') + '\r\n')
         count++
