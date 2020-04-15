@@ -24,3 +24,11 @@ A tool to manage latest version of Programmed Crew DJMAX TECHNIKA 3 client.
 - Released.
 ### 1.0.1
 - Fix init movie folder value when edit custom song.
+### 1.1.0
+- Add search feature in songs page and custom songs page.
+- Add missing eyecatch.
+- Delete custom songs.
+- Also Check stages after edit songs, auto add and delete difficulties.
+- Fix movie folder after edit official songs.
+- Unlock PCrew Extra patterns in stages.
+- Remove Creator MX in `discstock.csv`, pattern is same as HD.
