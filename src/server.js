@@ -254,6 +254,97 @@ const customSong = async (data) => {
   return msg
 }
 
+const delSongs = async (songNo) => {
+  let msg = ''
+  let success = false
+  try {
+    const songs = []
+
+    // read user songs
+    let discStreeam = fs.createReadStream(userPath + gameDiscInfoFolder + gameFileDiscStock, 'utf16le')
+      .pipe(csv.parse({ delimiter: '\t', headers: false, quote: '\'', escape: '\\', ignoreEmpty: true }))
+      .on('data', (data) => {
+        songs.push(data)
+      })
+
+    await once(discStreeam, 'finish', async () => {
+      await fs.unlink(userPath + gameDiscInfoFolder + gameFileDiscStock, (err) => {
+        if (err) throw err
+      })
+    })
+
+    const idx = await songs.findIndex((s) => {
+      return s[0] === songNo
+    })
+
+    songs.splice(idx, 1)
+
+    let writeStream = fs.createWriteStream(userPath + gameDiscInfoFolder + gameFileDiscStock, { flag: 'w', encoding: 'utf16le' })
+    for await (let s of songs) {
+      let w = ''
+      for (let ss of s) {
+        w += ss + '\t'
+      }
+      writeStream.write(w + '\r\n')
+    }
+    writeStream.end()
+
+    // check stages
+    const defaultStage = []
+    for (let file in gameFileStages) {
+      const stageStream = fs.createReadStream(path.join(__static, 'files/' + gameFileStages[file]))
+        .pipe(csv.parse({ delimiter: ',', quote: '`', escape: '\\', ignoreEmpty: true }))
+        .on('data', (data) => {
+          if (!isNaN(parseInt(data[0]))) defaultStage.push(data)
+        })
+
+      await once(stageStream, 'finish')
+    }
+
+    // user stage
+    const stage = []
+    for (let file in gameFileStages) {
+      const stageStream = fs.createReadStream(userPath + gameDiscInfoFolder + gameFileStages[file])
+        .pipe(csv.parse({ delimiter: ',', quote: '`', escape: '\\', ignoreEmpty: true }))
+        .on('data', (data) => {
+          if (!isNaN(parseInt(data[0]))) stage.push(data)
+        })
+
+      await once(stageStream, 'finish', async () => {
+        await fs.unlink(userPath + gameDiscInfoFolder + gameFileStages[file], (err) => {
+          if (err) throw err
+        })
+      })
+    }
+
+    for (let s in stage) {
+      if (stage[s].songNo === songNo) {
+        stage[s] = defaultStage[s]
+      }
+    }
+
+    let count = 0
+    for (let file in gameFileStages) {
+      const writeStream = fs.createWriteStream(userPath + gameDiscInfoFolder + gameFileStages[file], { flag: 'w' })
+      for await (let s of stage) {
+        writeStream.write(s.join(',') + '\r\n')
+        count++
+        if (count % 54 === 0) {
+          count = 0
+          stage.splice(0, 54)
+          break
+        }
+      }
+      writeStream.end()
+    }
+
+    success = true
+  } catch (e) {
+    msg = e.message
+  }
+  return { success, msg }
+}
+
 const saveGames = async (data) => {
   const config = ini.parse(fs.readFileSync(userPath + gameConfig, 'utf-8'))
   config.setting.dev_mode = data.dev_mode
@@ -379,6 +470,20 @@ server.post('/saveGame', async (req, res) => {
   let msg = ''
   await saveGames(data).then(() => {
     success = true
+  }).catch((err) => {
+    msg = err.message
+  })
+
+  res.json({ success, msg })
+})
+
+server.post('/del', async (req, res) => {
+  let songNo = req.body.songNo
+  let success = false
+  let msg = ''
+  await delSongs(songNo).then((data) => {
+    success = data.success
+    msg = data.msg
   }).catch((err) => {
     msg = err.message
   })
