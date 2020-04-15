@@ -92,13 +92,6 @@
           v-btn(color='green darken-1' text @click='saveSlot()') Save
 </template>
 
-<style lang="stylus">
-.btn-edit
-  position absolute
-  bottom 0 !important
-  right 0 !important
-</style>
-
 <script>
 import { eventBus } from '../main.js'
 export default {
