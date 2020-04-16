@@ -1,6 +1,6 @@
 <template lang="pug">
   div.settings
-    v-container(fill-height)
+    v-container(fill-height v-if="songs.length > 0")
       v-row(:justify="'center'")
         v-col(cols='10' v-if="songs.length > 0")
           h1.white--text Note Settings
@@ -22,6 +22,13 @@
           hr
           br
           v-btn(color='green' @click="saveNote()") Save
+    v-container(fill-height v-else)
+      v-row(:justify="'center'")
+        v-col(cols="10")
+          h1.white--text Note Settings
+          hr
+          br
+          p Please set your game path in tool settings page first.
 </template>
 
 <script>
