@@ -20,11 +20,6 @@
 <script>
 export default {
   name: 'settings',
-  data () {
-    return {
-      path: ''
-    }
-  },
   computed: {
     songs () {
       return this.$store.getters.songs
