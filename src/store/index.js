@@ -18,7 +18,11 @@ export default new Vuex.Store({
     },
     songs: [],
     stages: [],
-    lastno: 0
+    lastno: 0,
+    note: {
+      note: 0,
+      bomb: 0
+    }
   },
   mutations: {
     initTool (state, data) {
@@ -32,6 +36,9 @@ export default new Vuex.Store({
     },
     initStages (state, data) {
       state.stages = data
+    },
+    initNote (state, data) {
+      state.note = data
     },
     saveTool (state, data) {
       state.tool[data.type] = data.value
@@ -56,6 +63,9 @@ export default new Vuex.Store({
     },
     lastno (state) {
       return state.lastno
+    },
+    note (state) {
+      return state.note
     }
   }
 })

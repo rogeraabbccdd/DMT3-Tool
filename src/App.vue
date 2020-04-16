@@ -49,6 +49,9 @@
             v-list-item(@click="goto('/settings/game')")
               v-list-item-content
                 v-list-item-title Game Settings
+            v-list-item(@click="goto('/settings/note')")
+              v-list-item-content
+                v-list-item-title Note Settings
       v-app-bar(app clipped-left color="blue darken-2")
         v-app-bar-nav-icon(@click.stop='drawer = !drawer')
         v-toolbar-title DJMAX TECHNIKA 3 Tool
@@ -96,6 +99,7 @@ export default {
             this.$store.commit('initSongs', songs)
             this.$store.commit('initStages', res.data.stage)
             this.$store.commit('initSettings', res.data.settings)
+            this.$store.commit('initNote', res.data.note)
           } else {
             this.$swal({ type: 'error', title: 'Error', text: res.data.msg })
           }

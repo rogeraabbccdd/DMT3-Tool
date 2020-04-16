@@ -9,6 +9,8 @@ import fse from 'fs-extra'
 import { once } from 'events'
 import path from 'path'
 import ini from 'ini'
+import md5File from 'md5-file'
+import del from 'del'
 
 const server = express()
 
@@ -37,6 +39,39 @@ const gameFileStages = {
 }
 
 const gameConfig = 'Resource/config/setting.ini'
+
+// md5 hash of note_basic.png, for checking note
+const md5Notes = [
+  '2ce3417f6e39511b5fd8560d697c0a06',
+  '879f56080ba1ecf1e5e674f1739215ed',
+  '4e6d9a683fc86803aacc301ec660c7b8',
+  'ad4fd693bc487000494b26295515ec0b',
+  '080d9fe85c0d271e25e17b304d54bd3a',
+  '94356962e40d2eefc089adab029f4935',
+  '6765f61155ab19e0632761a5da0aee51',
+  '6e83c51f10500e2427c18e22c1dabcfd',
+  'eb9c7ce14f559451b2405efd908bd6d9',
+  '793ca4049e59871b0c6b43366695f1d2',
+  '9cccc76ebf9d0bc0f1534690e10fe84c',
+  '6ee5117ee16b79514898f364a3c6e75a'
+]
+
+// md5 hash of max/max.vce, for checking note
+// 0, 9, 10 are ad411d4069006099c3fe922f8a0dfd39
+const md5Bombs = [
+  '7a0158b60617b31dcaeb2c7c6f1b5539',
+  'e519c59919f8efed0eff68a48cef0c2c',
+  '8a45c8ce1b3e578b0eaf6946436c80df',
+  '7d9178551bea05e53344356f940ba6d3',
+  '89ca479867a60623b470a8a9faf7f1ff',
+  '1ef2dacf3a534e6aa9c2889784109ac9',
+  '41e0f4fd55935733f386e962d118259b',
+  '62cd42668af45cf77bc56ea2db3643c2',
+  '',
+  '',
+  '7f820661fc8c1f321c7fb3c3eff0b000',
+  '388cfbe041482c17d0a292858951b32c'
+]
 
 let userPath = ''
 
@@ -82,7 +117,29 @@ const readData = async () => {
   settings.sfx_volume = config.setting.sfx_volume
   settings.bgm_volume = config.setting.bgm_volume
 
-  return { songs, stage, settings }
+  let note = {
+    note: 0,
+    bomb: 0
+  }
+  exists = await fse.pathExists(userPath + 'Resource/maingame/note/pop/0/note_basic.png')
+  if (exists === false) {
+    await copyData(true, true)
+  }
+  if (exists) {
+    const md5 = await md5File(userPath + 'Resource/maingame/note/pop/0/note_basic.png')
+    note.note = md5Notes.indexOf(md5) + 1
+  }
+
+  exists = await fse.pathExists(userPath + 'Resource/maingame/coolbomb/0/max/max.vce')
+  if (exists === false) {
+    await copyData(true, true)
+  }
+  if (exists) {
+    const md5 = await md5File(userPath + 'Resource/maingame/coolbomb/0/max/max.vce')
+    note.bomb = md5Bombs.indexOf(md5) + 1
+  }
+
+  return { songs, stage, settings, note }
 }
 
 const copyData = async (disc, stage) => {
@@ -489,6 +546,31 @@ const saveGames = async (data) => {
   fs.writeFileSync(userPath + gameConfig, ini.stringify(config))
 }
 
+const chageNote = async (data) => {
+  let msg = ''
+  let success = false
+  try {
+    // note
+    await del(userPath + 'Resource/maingame/note/pop/0/**', { force: true })
+    if (data.note > 0) {
+      const filepath = path.join(__static, 'notes/notes/' + data.note)
+      fse.copy(filepath, userPath + 'Resource/maingame/note/pop/0/', { overwrite: true })
+    }
+
+    // bomb
+    await del(userPath + 'Resource/maingame/coolbomb/0/**', { force: true })
+    if (data.bomb > 0) {
+      const filepath = path.join(__static, 'notes/coolbomb/' + data.bomb)
+      fse.copy(filepath, userPath + 'Resource/maingame/coolbomb/0/', { overwrite: true })
+    }
+
+    success = true
+  } catch (err) {
+    msg = err.message
+  }
+  return { success, msg }
+}
+
 // init
 server.post('/init', async (req, res) => {
   let success = false
@@ -496,6 +578,7 @@ server.post('/init', async (req, res) => {
   let songs = []
   let stage = []
   let settings = {}
+  let note = 0
   let datapath = req.body.path
   const valid = await validPath(datapath)
   if (valid === true) {
@@ -505,6 +588,7 @@ server.post('/init', async (req, res) => {
       songs = data.songs
       stage = data.stage
       settings = data.settings
+      note = data.note
     }).catch((err) => {
       msg = err.message
     })
@@ -513,7 +597,7 @@ server.post('/init', async (req, res) => {
     msg = `Can't find CLIENT.EXE in selected folder`
   }
 
-  res.json({ success, msg, songs, stage, settings })
+  res.json({ success, msg, songs, stage, settings, note })
 })
 
 // validate settings, check folder exist
@@ -615,6 +699,20 @@ server.post('/del', async (req, res) => {
   let success = false
   let msg = ''
   await delSongs(songNo).then((data) => {
+    success = data.success
+    msg = data.msg
+  }).catch((err) => {
+    msg = err.message
+  })
+
+  res.json({ success, msg })
+})
+
+server.post('/note', async (req, res) => {
+  let note = req.body.note
+  let success = false
+  let msg = ''
+  await chageNote(note).then((data) => {
     success = data.success
     msg = data.msg
   }).catch((err) => {

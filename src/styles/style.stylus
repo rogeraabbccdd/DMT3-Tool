@@ -50,3 +50,26 @@
 
 div.cards > [class*='col-']
   display flex
+
+.selected
+  border 5px solid green
+  border-radius 50%
+  position relative
+  transition border .25s
+  display flex
+  justify-content center
+  align-items center
+
+  &:after
+    content 'check'
+    position absolute
+    font-family 'Material Icons'
+    background green
+    border-radius 50%
+    top -10px
+    font-size 20px
+    right -10px
+    width 35px
+    height 35px
+    text-align center
+    line-height 35px
