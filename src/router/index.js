@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Custom from '../views/Custom.vue'
 import Stage from '../views/Stage.vue'
-import Settings from '../views/Settings.vue'
+import ToolSettings from '../views/ToolSettings.vue'
+import GameSettings from '../views/GameSettings.vue'
 
 Vue.use(VueRouter)
 
@@ -19,9 +20,14 @@ const routes = [
     component: Custom
   },
   {
-    path: '/settings',
+    path: '/settings/tool',
     name: 'settings',
-    component: Settings
+    component: ToolSettings
+  },
+  {
+    path: '/settings/game',
+    name: 'settings',
+    component: GameSettings
   },
   {
     path: '/stage/:mode/:num',

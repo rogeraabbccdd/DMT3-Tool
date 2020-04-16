@@ -39,11 +39,16 @@
             v-list-item(@click="goto('/stage/pop/3')")
               v-list-item-content
                 v-list-item-title Stage 3
-          v-list-item(@click="goto('/settings')")
-            v-list-item-action
-              v-icon settings
-            v-list-item-content
-              v-list-item-title Settings
+          v-list-group(prepend-icon="settings"  no-action)
+            template(v-slot:activator)
+              v-list-item-content
+                v-list-item-title Settings
+            v-list-item(@click="goto('/settings/tool')")
+              v-list-item-content
+                v-list-item-title Tool Settings
+            v-list-item(@click="goto('/settings/game')")
+              v-list-item-content
+                v-list-item-title Game Settings
       v-app-bar(app clipped-left color="blue darken-2")
         v-app-bar-nav-icon(@click.stop='drawer = !drawer')
         v-toolbar-title DJMAX TECHNIKA 3 Tool
