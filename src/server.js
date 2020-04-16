@@ -11,6 +11,9 @@ import path from 'path'
 import ini from 'ini'
 import md5File from 'md5-file'
 import del from 'del'
+import childProcess from 'child_process'
+
+const exec = childProcess.execFile
 
 const server = express()
 
@@ -852,4 +855,9 @@ server.post('/note', async (req, res) => {
   })
 
   res.json({ success, msg })
+})
+
+server.get('/play', async (req, res) => {
+  exec(userPath + 'Client.exe')
+  res.send('')
 })
