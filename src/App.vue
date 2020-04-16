@@ -65,7 +65,7 @@
       v-footer(app)
         span © {{ new Date().getFullYear() }} Made with ❤ by Kento
         v-spacer
-        span 1.1.0
+        span 1.2.0
       v-overlay.text-center(:value='overlay')
         v-progress-circular(:size='50' color='primary' indeterminate)
         br

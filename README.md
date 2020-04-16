@@ -32,3 +32,7 @@ A tool to manage latest version of Programmed Crew DJMAX TECHNIKA 3 client.
 - Fix movie folder after edit official songs.
 - Unlock PCrew Extra patterns in stages.
 - Remove Creator MX in `discstock.csv`, pattern is same as HD.
+### 1.2.0
+- Change note skin.
+- Check edited official songs data when reset stages.
+- Add start game button in sidebar.
