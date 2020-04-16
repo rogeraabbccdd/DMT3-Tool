@@ -554,14 +554,15 @@ const chageNote = async (data) => {
     await del(userPath + 'Resource/maingame/note/pop/0/**', { force: true })
     if (data.note > 0) {
       const filepath = path.join(__static, 'notes/notes/' + data.note)
-      fse.copy(filepath, userPath + 'Resource/maingame/note/pop/0/', { overwrite: true })
+      await fse.copy(filepath, userPath + 'Resource/maingame/note/pop/0/', { overwrite: true })
+      await fse.copy(filepath, userPath + 'Resource/maingame/note/star/0/', { overwrite: true })
     }
 
     // bomb
     await del(userPath + 'Resource/maingame/coolbomb/0/**', { force: true })
     if (data.bomb > 0) {
       const filepath = path.join(__static, 'notes/coolbomb/' + data.bomb)
-      fse.copy(filepath, userPath + 'Resource/maingame/coolbomb/0/', { overwrite: true })
+      await fse.copy(filepath, userPath + 'Resource/maingame/coolbomb/0/', { overwrite: true })
     }
 
     success = true
