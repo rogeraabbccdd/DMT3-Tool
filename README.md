@@ -3,6 +3,12 @@ A tool to manage latest version of Programmed Crew DJMAX TECHNIKA 3 client.
 
 ![edit](./screenshot/edit.png)
 
+## Features
+1. Manage songs
+2. Manage stages
+3. Change note and coolbomb
+4. Manage geame settings. (Fullscreen, show cursor, volume...etc)
+
 ## Usage
 1. Install DMT3 mod patch from somewhere.
 2. Download exe from [release page](https://github.com/rogeraabbccdd/DMT3-Tool/releases/latest).
