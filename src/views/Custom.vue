@@ -127,7 +127,8 @@ export default {
     },
     customSongs () {
       return this.$store.getters.songs.filter((s) => {
-        return parseInt(s['no']) >= 184
+        const no = parseInt(s['no'])
+        return no >= 184 || no === 88 || no === 178
       })
     },
     filteredSongs () {
@@ -152,9 +153,6 @@ export default {
     },
     addSong () {
       if (this.$refs.form.validate()) {
-        if (this.dialog.mode === 'add') {
-          this.dialog.songNo = this.$store.getters.lastno + 1
-        }
         this.axios.post('http://localhost:1027/custom', this.dialog).then((res) => {
           if (res.data.success === true) {
             this.$swal({ type: 'success', title: 'Success' })
@@ -191,24 +189,32 @@ export default {
       }
     },
     initDialog () {
-      this.dialog = {
-        mode: 'add',
-        songNo: 0,
-        show: true,
-        name: '',
-        FullName: '',
-        Genre: '',
-        Composer: '',
-        Movie: 20,
-        loopBga: 0,
-        Star_1: 0,
-        Star_2: 0,
-        Star_3: 0,
-        Star_4: 0,
-        Pop_1: 0,
-        Pop_2: 0,
-        Pop_3: 0,
-        Pop_4: 0
+      let no = -1
+      if (this.songs.filter(song => parseInt(song.no) === 88).length === 0) no = 88
+      else if (this.songs.filter(song => parseInt(song.no) === 178).length === 0) no = 178
+      else no = this.songs[this.songs.length - 1].no + 1
+
+      if (no > 199) this.$swal({ type: 'error', title: 'Error', text: 'Discstock is full!' })
+      else {
+        this.dialog = {
+          mode: 'add',
+          songNo: no,
+          show: true,
+          name: '',
+          FullName: '',
+          Genre: '',
+          Composer: '',
+          Movie: 20,
+          loopBga: 0,
+          Star_1: 0,
+          Star_2: 0,
+          Star_3: 0,
+          Star_4: 0,
+          Pop_1: 0,
+          Pop_2: 0,
+          Pop_3: 0,
+          Pop_4: 0
+        }
       }
     },
     del (song) {

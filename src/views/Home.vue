@@ -118,7 +118,8 @@ export default {
   computed: {
     songs () {
       return this.$store.getters.songs.filter((s) => {
-        return parseInt(s['no']) < 184
+        const no = parseInt(s['no'])
+        return no < 184 && no !== 88 && no !== 178
       })
     },
     defaultSongs () {

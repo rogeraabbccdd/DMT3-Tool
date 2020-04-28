@@ -187,7 +187,8 @@ export default {
       return this.songs.filter((s) => { return s.no === no })[0]
     },
     getEyecatchUrl (s) {
-      return s[0] <= 183 ? './eyecatch/' + s[1] + '_1.jpg' : 'http://localhost:1027/customImg?name=' + s[1]
+      const no = parseInt(s[0])
+      return (no < 184 && no !== 88 && no !== 178) ? './eyecatch/' + s[1] + '_1.jpg' : 'http://localhost:1027/customImg?name=' + s[1]
     },
     edit (s, idx) {
       this.dialog.song = {
