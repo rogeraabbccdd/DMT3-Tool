@@ -5,7 +5,7 @@
         v-col(cols='10' v-if="songs.length > 0")
           h1.white--text Note Settings
           br
-          h2 Note Icon
+          h2 Note
           v-row
             v-col(v-for="(note, idx) in notes" :key="idx" col="4" sm="3" md="2" lg="1" style="flex-grow: 0")
               .note(:class="{selected: idx === selected.note}")
@@ -13,7 +13,7 @@
           br
           hr
           br
-          h2 Bomb Effect
+          h2 Coolbomb
           v-row
             v-col(v-for="(note, idx) in notes" :key="idx" col="4" sm="3" md="2" lg="1" v-if="idx !== 9 && idx !== 10" style="flex-grow: 0")
               .note(:class="{selected: idx === selected.bomb}")
