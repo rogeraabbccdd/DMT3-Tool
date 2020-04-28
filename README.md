@@ -42,3 +42,6 @@ A tool to manage latest version of Programmed Crew DJMAX TECHNIKA 3 client.
 - Change note skin.
 - Check edited official songs data when reset stages.
 - Add start game button in sidebar.
+### 1.2.1
+- Detect discstock limit when adding custom songs.
+- Use unused disc id 88 and 178 as custom songs.
