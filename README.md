@@ -45,3 +45,6 @@ A tool to manage latest version of Programmed Crew DJMAX TECHNIKA 3 client.
 ### 1.2.1
 - Detect discstock limit when adding custom songs.
 - Use unused disc id 88 and 178 as custom songs.
+### 1.2.2
+- Sort discstock after saving.
+- Fix disc id detect when adding custom songs.
