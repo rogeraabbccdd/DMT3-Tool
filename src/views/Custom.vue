@@ -192,7 +192,7 @@ export default {
       let no = -1
       if (this.songs.filter(song => parseInt(song.no) === 88).length === 0) no = 88
       else if (this.songs.filter(song => parseInt(song.no) === 178).length === 0) no = 178
-      else no = this.songs[this.songs.length - 1].no + 1
+      else no = this.$store.getters.lastno + 1
 
       if (no > 199) this.$swal({ type: 'error', title: 'Error', text: 'Discstock is full!' })
       else {
