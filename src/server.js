@@ -430,6 +430,10 @@ const customSong = async (data) => {
       ]
     }
 
+    songs.sort((a, b) => {
+      return parseInt(a[0]) - parseInt(b[0])
+    })
+
     const writeStream = fs.createWriteStream(userPath + gameDiscInfoFolder + gameFileDiscStock, { flag: 'w', encoding: 'utf16le' })
     for await (let s of songs) {
       let w = ''
