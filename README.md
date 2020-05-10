@@ -1,5 +1,5 @@
 # DMT3-Tool
-A tool to manage latest version of Programmed Crew DJMAX TECHNIKA 3 client.
+A tool to manage DJMAX TECHNIKA 3 client.
 
 ![edit](./screenshot/edit.png)
 
