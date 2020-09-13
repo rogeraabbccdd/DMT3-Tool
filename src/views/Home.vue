@@ -9,7 +9,7 @@
             v-col(cols="12")
               v-text-field(placeholder="Type to search..." prepend-icon="search" v-model="search")
           v-row.cards
-            v-col(cols='4' v-for="(s, idx) in filteredSongs" :key="idx" v-if="s['no'] !== '39'")
+            v-col(cols='4' v-for="(s, idx) in filteredSongs" :key="idx")
               v-card
                 v-img.white--text.align-end(height='200px' :src="'./eyecatch/'+s['name']+'_1.jpg'" v-if="")
                 v-card-title {{ s['FullName'] }}
