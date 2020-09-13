@@ -48,3 +48,7 @@ A tool to manage DJMAX TECHNIKA 3 client.
 ### 1.2.2
 - Sort discstock after saving.
 - Fix disc id detect when adding custom songs.
+### 1.3.0
+- Add technicolor note made by [@rogeraabbccdd](https://github.com/rogeraabbccdd)
+- Add deleted song 'Motion' back.
+- Remove unused eyecatch files.
