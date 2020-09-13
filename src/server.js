@@ -56,7 +56,8 @@ const md5Notes = [
   'eb9c7ce14f559451b2405efd908bd6d9',
   '793ca4049e59871b0c6b43366695f1d2',
   '9cccc76ebf9d0bc0f1534690e10fe84c',
-  '6ee5117ee16b79514898f364a3c6e75a'
+  '6ee5117ee16b79514898f364a3c6e75a',
+  '93139127d77325780e229f4386ad87d0'
 ]
 
 // md5 hash of max/max.vce, for checking note
@@ -73,7 +74,8 @@ const md5Bombs = [
   '',
   '',
   '7f820661fc8c1f321c7fb3c3eff0b000',
-  '388cfbe041482c17d0a292858951b32c'
+  '388cfbe041482c17d0a292858951b32c',
+  ''
 ]
 
 let userPath = ''

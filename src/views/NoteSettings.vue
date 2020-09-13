@@ -15,7 +15,7 @@
           br
           h2 Coolbomb
           v-row
-            v-col(v-for="(note, idx) in notes" :key="idx" col="4" sm="3" md="2" lg="1" v-if="idx !== 9 && idx !== 10" style="flex-grow: 0")
+            v-col(v-for="(note, idx) in notes" :key="idx" col="4" sm="3" md="2" lg="1" v-if="idx !== 9 && idx !== 10 && idx !== 13" style="flex-grow: 0")
               .note(:class="{selected: idx === selected.bomb}")
                 v-img(:src="`./notes/${idx}.png`" @click="select('bomb', idx)")
           br
@@ -50,7 +50,7 @@ export default {
         'Technika2 (Classic) Note',
         'Hexagon Note',
         'Animal Note',
-        'Crystal Note',
+        'Technicolor Note'
       ]
     }
   },
