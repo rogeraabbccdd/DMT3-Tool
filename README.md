@@ -23,7 +23,8 @@ A tool to manage DJMAX TECHNIKA 3 client.
 1. Download repository.
 2. Run `yarn`.
 3. Run `yarn elec-serve` to run.
-4. Run `yarn elec-build` to build.
+4. Run `yarn elec-icon` to generate application icon.
+5. Run `yarn elec-build` to build. **YOU MUST GENERATE ICON BEFORE YOU BUILD THE APPLICATION**
 
 ## Change log
 ### 1.0
