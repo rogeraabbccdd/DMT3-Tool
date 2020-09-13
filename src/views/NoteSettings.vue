@@ -39,17 +39,18 @@ export default {
       notes: [
         'Technika3 (Default) Note',
         'Rainbow Note',
-        'Radar Note',
         'Speaker Note',
-        'Mirror Note',
+        'Radar Note',
         'LED Note',
+        'Mirror Note',
+        'Crystal Note',
+        'Envy Ranger Note',
+        'Son of Sun Note',
+        'Black Note',
         'Technika2 (Classic) Note',
         'Hexagon Note',
-        'Black Note',
         'Animal Note',
         'Crystal Note',
-        'Son of Sun Note',
-        'Envy Ranger Note'
       ]
     }
   },
