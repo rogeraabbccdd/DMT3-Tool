@@ -2,8 +2,8 @@
 /* global __static */
 import { app, protocol, BrowserWindow } from 'electron'
 import {
-  createProtocol,
-  installVueDevtools
+  createProtocol
+  // installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
 import path from 'path'
 import { autoUpdater } from 'electron-updater'

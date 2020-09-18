@@ -9,7 +9,7 @@
           v-row
             v-col(cols='4' v-for="(s, idx) in stages" :key="idx")
               v-card
-                v-img.white--text.align-end(height='200px' :src="getEyecatchUrl(s)")
+                v-img.white--text.align-end(height='200px' :src="'http://localhost:1027/eyecatch/'+s[1]")
                   template(v-slot:placeholder)
                     v-img.white--text.align-end(height='200px' :src="'./eyecatch/placeholder.jpg'")
                 v-card-text.text--primary
@@ -185,10 +185,6 @@ export default {
     },
     getSongInfo (no) {
       return this.songs.filter((s) => { return s.no === no })[0]
-    },
-    getEyecatchUrl (s) {
-      const no = parseInt(s[0])
-      return (no < 184 && no !== 88 && no !== 178) ? './eyecatch/' + s[1] + '_1.jpg' : 'http://localhost:1027/customImg?name=' + s[1]
     },
     edit (s, idx) {
       this.dialog.song = {

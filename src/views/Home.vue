@@ -11,7 +11,7 @@
           v-row.cards
             v-col(cols='4' v-for="(s, idx) in filteredSongs" :key="idx")
               v-card
-                v-img.white--text.align-end(height='200px' :src="'./eyecatch/'+s['name']+'_1.jpg'" v-if="")
+                v-img.white--text.align-end(height='200px' :src="'http://localhost:1027/eyecatch/'+s['name']")
                 v-card-title {{ s['FullName'] }}
                 v-card-text.text--primary
                   div(v-if="s['Star_1'] > 0 || s['Star_2'] > 0 || s['Star_3'] > 0 || s['Star_4'] > 0") STAR MIXING

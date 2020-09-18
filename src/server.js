@@ -815,11 +815,16 @@ server.post('/custom', async (req, res) => {
   res.json({ success, msg })
 })
 
-server.get('/customImg', async (req, res) => {
-  let file = userPath + '/Resource/eyecatch/song/' + req.query.name + '_0.jpg'
-  const exists = await fse.pathExists(file)
-  if (exists === true) res.sendFile(file)
-  else res.sendFile(path.join(__static, 'eyecatch/placeholder.jpg'))
+server.get('/eyecatch/:name', async (req, res) => {
+  let custom = userPath + '/Resource/eyecatch/song/' + req.params.name + '_0.jpg'
+  let exists = await fse.pathExists(custom)
+  if (exists) {
+    res.sendFile(custom)
+    return
+  }
+  let official = path.join(__static, `eyecatch/${req.params.name}_1.jpg`)
+  exists = await fse.pathExists(official)
+  exists ? res.sendFile(official) : res.sendFile(path.join(__static, 'eyecatch/placeholder.jpg'))
 })
 
 server.post('/saveGame', async (req, res) => {
