@@ -53,3 +53,5 @@ A tool to manage DJMAX TECHNIKA 3 client.
 - Add technicolor note made by [@rogeraabbccdd](https://github.com/rogeraabbccdd)
 - Add deleted song 'Motion' back.
 - Remove unused eyecatch files.
+### 1.3.1
+- Fix eyecatch not showing when change official song slot to custom song.
