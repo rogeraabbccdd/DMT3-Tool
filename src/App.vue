@@ -57,6 +57,11 @@
               v-icon play_arrow
             v-list-item-content
               v-list-item-title Start Game
+          v-list-item(@click="openFolder()" v-if="songs.length > 0")
+            v-list-item-action
+              v-icon folder
+            v-list-item-content
+              v-list-item-title Open Folder
       v-app-bar(app clipped-left color="blue darken-2")
         v-app-bar-nav-icon(@click.stop='drawer = !drawer')
         v-toolbar-title DJMAX TECHNIKA 3 Tool
@@ -119,6 +124,9 @@ export default {
     },
     play () {
       this.axios.get('http://localhost:1027/play')
+    },
+    openFolder () {
+      this.axios.get('http://localhost:1027/folder')
     }
   },
   mounted () {

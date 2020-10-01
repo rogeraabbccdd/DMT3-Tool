@@ -12,6 +12,7 @@ import ini from 'ini'
 import md5File from 'md5-file'
 import del from 'del'
 import childProcess from 'child_process'
+import { shell } from 'electron'
 
 const exec = childProcess.execFile
 
@@ -870,5 +871,10 @@ server.post('/note', async (req, res) => {
 
 server.get('/play', async (req, res) => {
   exec(userPath + 'Client.exe')
+  res.send('')
+})
+
+server.get('/folder', async (req, res) => {
+  shell.showItemInFolder(userPath + 'Client.exe')
   res.send('')
 })
