@@ -129,18 +129,12 @@ const readData = async () => {
     bomb: 0
   }
   exists = await fse.pathExists(userPath + 'Resource/maingame/note/pop/0/note_basic.png')
-  if (exists === false) {
-    await copyData(true, true)
-  }
   if (exists) {
     const md5 = await md5File(userPath + 'Resource/maingame/note/pop/0/note_basic.png')
     note.note = md5Notes.indexOf(md5) + 1
   }
 
   exists = await fse.pathExists(userPath + 'Resource/maingame/coolbomb/0/max/max.vce')
-  if (exists === false) {
-    await copyData(true, true)
-  }
   if (exists) {
     const md5 = await md5File(userPath + 'Resource/maingame/coolbomb/0/max/max.vce')
     note.bomb = md5Bombs.indexOf(md5) + 1
