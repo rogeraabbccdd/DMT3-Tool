@@ -58,3 +58,5 @@ A tool to manage DJMAX TECHNIKA 3 client.
 ### 1.3.2
 - Add open folder button in menu.
 - Fix keep creating readonly file.
+### 1.3.3
+- Fix songs and stages reset when use default note skin.
