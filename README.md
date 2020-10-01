@@ -55,3 +55,6 @@ A tool to manage DJMAX TECHNIKA 3 client.
 - Remove unused eyecatch files.
 ### 1.3.1
 - Fix eyecatch not showing when change official song slot to custom song.
+### 1.3.2
+- Add open folder button in menu.
+- Fix keep creating readonly file.
