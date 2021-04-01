@@ -4,13 +4,13 @@ A tool to manage DJMAX TECHNIKA 3 client.
 ![edit](./screenshot/edit.png)
 
 ## Features
-1. Manage songs
+1. Manage songs, including PCrew hidden songs.
 2. Manage stages
 3. Change note and coolbomb
 4. Manage geame settings. (Fullscreen, show cursor, volume...etc)
 
 ## Usage
-1. Install DMT3 mod patch from somewhere.
+1. Install DMT3 mod patch from somewhere if you want to change note skins.
 2. Download exe from [release page](https://github.com/rogeraabbccdd/DMT3-Tool/releases/latest).
 3. Install.
 4. Delete your `discstock.csv` and `<star/pop>_stage_<num>.csv` in your `gamepath/Resource/DiscInfo/`.  
@@ -60,3 +60,5 @@ A tool to manage DJMAX TECHNIKA 3 client.
 - Fix keep creating readonly file.
 ### 1.3.3
 - Fix songs and stages reset when use default note skin.
+### 1.4.0
+- Support editing songs and stages without mod patch.
