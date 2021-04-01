@@ -3,6 +3,7 @@
     v-container(fill-height v-if="songs.length > 0")
       v-row(:justify="'center'")
         v-col(cols="10")
+          v-alert(type='error') DO NOT CONNECT TO PCREW SERVER IF YOU HAVE CUSTOM SONGS INSTALLED.
           h1.white--text Songs
           hr
           v-row

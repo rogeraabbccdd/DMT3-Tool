@@ -3,6 +3,7 @@
     v-container(fill-height v-if="songs.length > 0")
       v-row(:justify="'center'")
         v-col(cols='10' v-if="songs.length > 0")
+          v-alert(type='error') Only works when you have mod patch installed.
           h1.white--text Game Settings
           br
           v-row(justify="space-around")

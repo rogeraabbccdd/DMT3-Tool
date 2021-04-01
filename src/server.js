@@ -42,6 +42,56 @@ const gameFileStages = {
   pop2: 'pop_stage_2.csv',
   pop3: 'pop_stage_3.csv'
 }
+const gameFilesOther = [
+  'adlong.csv',
+  'blackwhite.csv',
+  'boymeetsgirl.csv',
+  'brutalizer.csv',
+  'challenger.csv',
+  'conqueror.csv',
+  'coresound.csv',
+  'cottoncandy.csv',
+  'customizer.csv',
+  'detonate.csv',
+  'discinfo.csv',
+  'djmaxidol.csv',
+  'duo_stage_1.csv',
+  'duo_stage_2.csv',
+  'egglong.csv',
+  'electrobeat.csv',
+  'electroep.csv',
+  'fatality.csv',
+  'firststep.csv',
+  'futurist.csv',
+  'goldendisc.csv',
+  'heartbeat.csv',
+  'hyperspeed.csv',
+  'jumplong.csv',
+  'maximum.csv',
+  'nbrangernon.csv',
+  'orientalism.csv',
+  'pop_stage_bonus.csv',
+  'prettylong.csv',
+  'Preview.csv',
+  'radiowave.csv',
+  'rainbow.csv',
+  'random.csv',
+  'remixound.csv',
+  'saturday.csv',
+  'sonoflong.csv',
+  'soundlab.csv',
+  'specialist.csv',
+  'specialist2.csv',
+  'ssoniclong.csv',
+  'star_stage_bonus.csv',
+  'steplong.csv',
+  'superspeed.csv',
+  'sweetsound.csv',
+  'TestDummy.csv',
+  'thorlong.csv',
+  'unplugged.csv',
+  'ylong.csv'
+]
 
 const gameConfig = 'Resource/config/setting.ini'
 
@@ -144,7 +194,17 @@ const readData = async () => {
 }
 
 const copyData = async (disc, stage) => {
-  let exists = await fse.pathExists(userPath + gameDiscInfoFolder + gameFileDiscStock)
+  let exists = false
+  let paks = fs.readdirSync(userPath + 'pack/')
+  for (let file in paks) {
+    if (paks[file].includes('DiscInfo.pak') && !paks[file].includes('backup')) {
+      const filename = path.basename(paks[file], '.pak')
+      exists = await fse.pathExists(userPath + 'pack/' + paks[file])
+      if (exists) await fs.renameSync(userPath + 'pack/' + paks[file], userPath + 'pack/' + filename + '_backup.pak')
+    }
+  }
+
+  exists = await fse.pathExists(userPath + gameDiscInfoFolder + gameFileDiscStock)
   if (exists === false || disc === true) {
     const filepath = path.join(__static, 'files/' + gameFileDiscStock)
     await fse.copy(filepath, userPath + gameDiscInfoFolder + gameFileDiscStock, { overwrite: true })
@@ -154,6 +214,14 @@ const copyData = async (disc, stage) => {
     if (exists === false || stage === true) {
       const filepath = path.join(__static, 'files/' + gameFileStages[file])
       await fse.copy(filepath, userPath + gameDiscInfoFolder + gameFileStages[file], { overwrite: true })
+    }
+  }
+
+  for (let file in gameFilesOther) {
+    exists = await fse.pathExists(userPath + gameDiscInfoFolder + gameFilesOther[file])
+    if (exists === false || stage === true) {
+      const filepath = path.join(__static, 'files/' + gameFilesOther[file])
+      await fse.copy(filepath, userPath + gameDiscInfoFolder + gameFilesOther[file], { overwrite: true })
     }
   }
 

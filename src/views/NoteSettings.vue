@@ -3,6 +3,7 @@
     v-container(fill-height v-if="songs.length > 0")
       v-row(:justify="'center'")
         v-col(cols='10' v-if="songs.length > 0")
+          v-alert(type='error') Only works when you have mod patch installed.
           h1.white--text Note Settings
           br
           h2 Note
