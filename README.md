@@ -62,3 +62,5 @@ A tool to manage DJMAX TECHNIKA 3 client.
 - Fix songs and stages reset when use default note skin.
 ### 1.4.0
 - Support editing songs and stages without mod patch.
+### 1.4.0
+- Fix discinfo packs detect.
