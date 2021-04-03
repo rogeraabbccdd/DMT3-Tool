@@ -197,7 +197,7 @@ const copyData = async (disc, stage) => {
   let exists = false
   let paks = fs.readdirSync(userPath + 'pack/')
   for (let file in paks) {
-    if (paks[file].includes('DiscInfo.pak') && !paks[file].includes('backup')) {
+    if (paks[file].match(/DiscInfo/gi) && !paks[file].includes('backup')) {
       const filename = path.basename(paks[file], '.pak')
       exists = await fse.pathExists(userPath + 'pack/' + paks[file])
       if (exists) await fs.renameSync(userPath + 'pack/' + paks[file], userPath + 'pack/' + filename + '_backup.pak')
